@@ -1,0 +1,33 @@
+body#GETYOO{
+	background: ghostwhite;
+	font-size: 30px;
+	height: 100%;
+	width: 100%;
+}
+
+#GETYOO *{
+	font-family: 'CosmicSansNeueMono';
+	text-transform: lowercase;
+}
+
+#GETYOO .form-control, #GETYOO .btn{
+	height: 100px;
+	font-size: 30px;
+	outline: none;
+	-webkit-box-shadow: 0 0 2px rgba(128, 128, 128, 0.5);
+	-moz-box-shadow: 0 0 2px rgba(128, 128, 128, 0.5);
+	box-shadow: 0 0 2px rgba(128, 128, 128, 0.5);
+}
+
+#GETYOO .btn-lg{
+	padding: 30px 40px;
+}
+
+
+#GETYOO .frame{
+	padding: 150px 15px 15px 15px;
+	bottom: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
