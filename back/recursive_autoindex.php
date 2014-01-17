@@ -67,7 +67,7 @@
 
 	echo json_encode(array(
 		'status'	=> 'ok',
-		'directory'	=> $_SERVER['SCRIPT_FILENAME'],
+		'directory'	=> $_SERVER['REQUEST_URI'],
 		'origin'	=> $_SERVER['PHP_SELF'],
 		'data'		=> $r )
 	);
