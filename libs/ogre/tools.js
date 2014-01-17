@@ -90,6 +90,7 @@
 		};
 
 		return {
+			xhr : _xhr,
 
 			listFiles : function(url, callback){
 				var list = [];

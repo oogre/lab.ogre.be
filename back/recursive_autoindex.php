@@ -23,6 +23,9 @@
 			'error'		=> 'file not found : ' FILE_REQUESTED_ADRESS )
 		);
 */
+	
+    header("Access-Control-Allow-Origin: *");
+	header('Content-type: application/json');
 
 
 	if($_SERVER['PHP_SELF'] === array_shift(explode("?", $_SERVER['REQUEST_URI'])))
