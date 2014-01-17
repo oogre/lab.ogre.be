@@ -63,9 +63,7 @@
 			for ($depth = $ritit->getDepth() - 1; $depth >= 0; $depth--) {
 				$path = array($ritit->getSubIterator($depth)->current()->getFilename() => $path);
 			}
-			$r = array_merge_recursive($r, $path);
-			recur_ksort($r)
-			$r = array_multisort($r, SORT_ASC, SORT_STRING);
+			recur_ksort($r);
 		}
 	}
 

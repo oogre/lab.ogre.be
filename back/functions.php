@@ -1,5 +1,6 @@
 <?php 
-	function recur_ksort(&$array) {
+	function recur_ksort(&$array) 
+	{
 		foreach ($array as &$value) 
 		{
 			if (is_array($value)) 
