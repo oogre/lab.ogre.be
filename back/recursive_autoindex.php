@@ -24,11 +24,13 @@
 		);
 */
 	
-    header("Access-Control-Allow-Origin: *");
+    header('Access-Control-Allow-Origin: *');
 	header('Content-type: application/json');
 
+	include('functions.php');
 
-	if($_SERVER['PHP_SELF'] === array_shift(explode("?", $_SERVER['REQUEST_URI'])))
+
+	if($_SERVER['PHP_SELF'] === array_shift(explode('?', $_SERVER['REQUEST_URI'])))
 	{
 		$dir = array_shift(array_keys($_GET));
 	}
@@ -53,7 +55,7 @@
 	foreach ($ritit as $splFileInfo)
 	{
 		$entry = $splFileInfo->getFilename();
-		if($entry && "." != $entry && ".." != $entry && ".DS_Store" != $entry){
+		if($entry && '.' != $entry && '..' != $entry && '.DS_Store' != $entry){
 			$path = $splFileInfo->isDir()
 				? array($splFileInfo->getFilename() => array())
 				: array($splFileInfo->getFilename());
@@ -61,9 +63,12 @@
 			for ($depth = $ritit->getDepth() - 1; $depth >= 0; $depth--) {
 				$path = array($ritit->getSubIterator($depth)->current()->getFilename() => $path);
 			}
-			$r = array_merge_recursive($r, $path);
+			$r = recur_ksort(array_merge_recursive($r, $path));
 		}
 	}
+
+
+
 
 	echo json_encode(array(
 		'status'	=> 'ok',
