@@ -41,7 +41,7 @@
 	if(!file_exists($directory)){
 		echo json_encode(array(
 			'status'	=> 'ko',
-			'directory'	=> $directory,
+			'directory'	=> $_SERVER['SCRIPT_FILENAME'],
 			'origin'	=> $_SERVER['PHP_SELF'],
 			'error'		=> 'file not found : ' . $dir )
 		);
@@ -67,7 +67,7 @@
 
 	echo json_encode(array(
 		'status'	=> 'ok',
-		'directory'	=> $directory,
+		'directory'	=> $_SERVER['SCRIPT_FILENAME'],
 		'origin'	=> $_SERVER['PHP_SELF'],
 		'data'		=> $r )
 	);
