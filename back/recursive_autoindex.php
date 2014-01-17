@@ -64,8 +64,8 @@
 				$path = array($ritit->getSubIterator($depth)->current()->getFilename() => $path);
 			}
 			$r = array_merge_recursive($r, $path);
-			
-			$r = array_multisort(recur_ksort($r), SORT_ASC, SORT_STRING);
+			recur_ksort($r)
+			$r = array_multisort($r, SORT_ASC, SORT_STRING);
 		}
 	}
 
