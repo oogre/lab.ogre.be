@@ -64,15 +64,11 @@
 			for ($depth = $ritit->getDepth() - 1; $depth >= 0; $depth--) {
 				$path = array($ritit->getSubIterator($depth)->current()->getFilename() => $path);
 			}
-			print_r($path);
+			
 			$r = array_merge_recursive($r, $path);
-			print_r($r);
-			//recur_ksort($r);
+			recur_ksort($r);
 		}
 	}
-
-	print_r($r);
-
 
 
 	echo json_encode(array(
