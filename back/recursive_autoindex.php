@@ -71,6 +71,7 @@
 	}
 
 
+
 	echo json_encode(array(
 		'status'	=> 'ok',
 		'directory'	=> $_SERVER['REQUEST_URI'],
