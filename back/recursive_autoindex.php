@@ -59,6 +59,7 @@
 			$path = $splFileInfo->isDir()
 				? array($splFileInfo->getFilename() => array())
 				: array($splFileInfo->getFilename());
+			print_r($path);
 
 			for ($depth = $ritit->getDepth() - 1; $depth >= 0; $depth--) {
 				$path = array($ritit->getSubIterator($depth)->current()->getFilename() => $path);
