@@ -11,14 +11,17 @@
 		};
 
 
-		var xhrgetyooapi = function(request){
+		var _getJson = function(request){
 			return _xhr(request)
 			.pipe(function(data) {
+				if(undefined === data.status){
+					data = JSON.parse(JSON.parse(data));
+				}
 				var deferred = $.Deferred();
 				if(!data || data.status != "ok") {
 					deferred.reject( {	data : data, request : request } );
 				}else{
-					deferred.resolve( data.data );
+					deferred.resolve( data );
 				}
 				return deferred;
 			}, function(){
@@ -103,9 +106,10 @@
 			},
 
 			getFiles : function(url, callback){
-				var contents = {};
-				xhrautoindex({request : {url : url}}).done(function(){
-					callback.call(null, arguments);
+				_getJson(url).done(function(data){
+					callback.call(null, data.data.sort().map(function(d){
+						return url+d;
+					}));
 				});
 			},
 
@@ -124,58 +128,60 @@
 				return array;
 			},
 
-			Team : function(){
-				var array = [];
-				array.get = function(name){
-					for(var k = 0 ; k < array.length ; k++){
-						if(name === array[k].name){
-							return array[k];
+			getArticles : function(url, destination, callback){
+				var self = this;
+				
+				_getJson(url).done(function(data){
+					var articles = [];
+
+					for(var name in data.data){
+						var article = data.data[name];
+						for(var contentName in article){
+							article[contentName] = article[contentName].sort();
 						}
+						articles.push({
+							name : name,
+							title : name.split("_").pop(),
+							date : name.split("_").shift(),
+							content : article
+						});
 					}
-					return false;
-				};
-				array.add = function(object){
-					if(object.name){
-						array.push(object);
-					}
-					return this;
-				};
-				return array;
+					// extract the last filename from directory path;
+					callback(articles, destination);
+				});
 			},
 
-			easyloader : function(dir, elem, size){
-				elem.style.backgroundSize = "cover";
-				elem.style.backgroundRepeat = "no-repeat";
-				elem.style.backgroundPosition = "50%";
-				elem.style.width= "100%";
-				elem.style.height= "100%";
-				elem.style.display= "block";
+			easyloader : function(parent, pictures, size){
+				parent.style.backgroundSize = "cover";
+				parent.style.backgroundRepeat = "no-repeat";
+				parent.style.backgroundPosition = "50%";
+				parent.style.width= "100%";
+				parent.style.height= "100%";
+				parent.style.display= "block";
 				
 				var deferred = $.Deferred();
 				var self = this;
 				var wait = 75; 
-				self.getFiles(dir, function(pictures){
-					var image = new Image();
-					image.style.display = "none";
-					elem.appendChild(image);
-					var loader = function(i){
-						var t0 = new Date().getTime();
-						image.src = i.current.join("/");
-						image.onload = function() {
-							var current = this;
-							elem.style.backgroundImage = "url("+i.current.join("/")+")";
-							if(i.hasNext() && (!size || this.width * this.height < size)){
-								setTimeout(function(){
-									loader(i.next());
-								}, Math.max(Math.min( wait, wait - (new Date().getTime() - t0)), 0));
-							}else{
-								current.parentNode.removeChild(current);
-								deferred.resolve();	
-							}
-						};
+				var image = new Image();
+				image.style.display = "none";
+				parent.appendChild(image);
+				var loader = function(i){
+					var t0 = new Date().getTime();
+					image.src = "http://lab.ogre.be/salutpublic/"+i.current;
+					image.onload = function() {
+						parent.style.backgroundImage = "url("+this.src+")";
+						if(i.hasNext() && (!size || this.width * this.height < size)){
+							setTimeout(function(){
+								loader(i.next());
+							}, Math.max(Math.min( wait, wait - (new Date().getTime() - t0)), 0));
+						}else{
+							this.parentNode.removeChild(this);
+							deferred.resolve();	
+						}
 					};
-					loader(new self.Iterator(pictures));
-				});
+				};
+				loader(new self.Iterator(pictures));
+				/**/
 				return deferred.promise();
 			}
 		};
