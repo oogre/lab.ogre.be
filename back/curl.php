@@ -1,4 +1,6 @@
 <?php
+    header('Access-Control-Allow-Origin: *');
+    
         $url      = $_GET['url'];
         # Open connection
         $ch = curl_init();
