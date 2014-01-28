@@ -1,5 +1,5 @@
 <?php
-        $url      = 'http://' . $_GET['url'];
+        $url      = $_GET['url'];
         # Open connection
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
