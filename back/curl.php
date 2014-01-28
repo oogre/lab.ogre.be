@@ -1,4 +1,7 @@
 <?php
+
+    phpinfo();/*
+
         $url      = $_GET['url'];
         # Open connection
         $ch = curl_init();
@@ -11,5 +14,5 @@
         $result = curl_exec($ch);
         # Close connection
         curl_close($ch);
-        echo $result;
+        echo $result;*/
 ?>
