@@ -74,7 +74,7 @@
 
 	echo json_encode(array(
 		'status'	=> 'ok',
-		'directory'	=> $_SERVER['REQUEST_URI'],
+		'directory'	=> $dir,
 		'origin'	=> $_SERVER['PHP_SELF'],
 		'data'		=> $r )
 	);
