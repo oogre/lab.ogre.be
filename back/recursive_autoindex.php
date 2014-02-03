@@ -35,7 +35,7 @@
 		$dir = array_shift(array_keys($_GET));
 	}
 	else{
-		$dir = $_SERVER['REQUEST_URI'];
+		$dir = array_shift(explode('?', $_SERVER['REQUEST_URI'])) ;
 	}
 
 	$directory = str_replace($_SERVER['PHP_SELF'], '', $_SERVER['SCRIPT_FILENAME']) . $dir;
