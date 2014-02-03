@@ -97,7 +97,9 @@
 
 			listFiles : function(url, callback){
 				var list = [];
-				_xhr(url).done(function (data){
+				_xhr({
+					url : url
+				}).done(function (data){
 					directoryParser(data, cleaner.autoindex).map(function(item){
 						list.push(url+item.name);
 					});
@@ -106,7 +108,9 @@
 			},
 
 			getFiles : function(url, callback){
-				_getJson(url).done(function(data){
+				_getJson({
+					url : url
+				}).done(function(data){
 					callback.call(null, data.data.sort().map(function(d){
 						return url+d;
 					}));
@@ -131,7 +135,9 @@
 			getArticles : function(url, destination, callback){
 				var self = this;
 				
-				_getJson(url).done(function(data){
+				_getJson({
+					url : url
+				}).done(function(data){
 					var articles = [];
 
 					for(var name in data.data){
